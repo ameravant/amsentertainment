@@ -1,0 +1,7 @@
+- content_for(:title) { "New Entertainment" }
+
+%h1
+  Edit Entertainment
+- form_for [:admin, @entertainment], :html => { :multipart => true, :onsubmit => "form_submitted('Saving, please wait...')" } do |f|
+  = render :partial => "form", :locals => { :f => f }
+

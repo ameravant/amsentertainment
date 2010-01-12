@@ -1,0 +1,4 @@
+%h2="Entertainment Types"  
+%ul
+  -@entertainment_types.each do |et|
+    %li=link_to(et.title, entertainments_path(:entertainment_type => et))

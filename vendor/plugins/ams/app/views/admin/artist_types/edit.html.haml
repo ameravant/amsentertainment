@@ -1,0 +1,7 @@
+- content_for(:title) { "Edit Artist Type" }
+
+%h1
+  Edit Artist Type
+- form_for [:admin, @artist_type], :html => {:onsubmit => "form_submitted('Saving, please wait...')" } do |f|
+  = render :partial => "form", :locals => { :f => f }
+

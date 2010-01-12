@@ -1,0 +1,43 @@
+<<<<<<< .mine
+- content_for :meta_title do
+  =@entertainment.title
+
+%h1= @entertainment.title
+-entertainment_attrb = []
+-unless @entertainment.entertainment_types.blank?
+  -@entertainment.entertainment_types.each do |t|
+    -entertainment_attrb << link_to(t.title, entertainments_path(:entertainment_type => t))
+
+=entertainment_attrb.join(", ") unless entertainment_attrb.blank?
+
+.entertainment
+  -if @entertainment.tag_list
+    -for tag in @entertainment.tag_list
+      - if params[:tag] == tag
+        = tag
+      - else
+        %li[tag]= link_to h(tag), entertainments_path(:tag => tag)
+    
+  =@entertainment.body=======
+- content_for :meta_title do
+  =@artist.title
+
+%h1= @artist.title
+// Combine the two types of artist attributes and output
+-artist_attrb = []
+-unless @artist.genres.blank?
+  -@artist.genres.each do |a|
+    -artist_attrb << link_to(a.title, artists_path(:genre => a))
+
+-unless @artist.artist_types.blank?
+  -@artist.artist_types.each do |t|
+    -artist_attrb << link_to(t.title, artists_path(:artist_type => t))
+
+=artist_attrb.join(", ") unless artist_attrb.blank?
+
+.artist
+  - @artist.price.times do
+    = icon "Currency Dollar",'','','','24x24','green'
+  =@artist.body
+  -if !@clips.blank?
+    =render :partial => "clip", :collection => @clips >>>>>>> .r8220

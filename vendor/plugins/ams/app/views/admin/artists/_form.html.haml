@@ -1,0 +1,54 @@
+%fieldset
+
+  = f.error_messages
+
+  %div{:class => "form-option #{cycle('even', 'odd')}"}
+    = f.label :title, "Title", :class => "big"
+    = f.text_field :title, :size => 50, :class => "big"
+  %div{:class => "form-option-radio #{cycle('even', 'odd')}"}
+    Price
+    %br
+    - (1..5).each do |p| 
+      = label_tag "artist_price_#{p}", p 
+      = f.radio_button :price, p
+  %div{:class => "form-option #{cycle('even', 'odd')}"}
+    .options-title Artist Types
+    .options
+      - @artist_types.each do |a|
+        = label_tag dom_id(a), a.title
+        = check_box_tag  "artist[artist_type_ids][]", a.id, @artist.artist_types.include?(a) , :id => dom_id(a)
+    =clear
+  %div{:class => "form-option #{cycle('even', 'odd')}"}
+    .options-title Artist Genres
+    .options
+      - @genres.each do |a|
+        = label_tag dom_id(a), a.title
+        = check_box_tag  "artist[genre_ids][]", a.id, @artist.genres.include?(a) , :id => dom_id(a)  
+    = clear
+
+  %h2= f.label :blurb
+
+  %div
+    = f.text_area :blurb, :size => "80x5", :class => "full_width"
+    %br
+
+  %h2= f.label :meta_description
+
+  %div
+    = f.text_area :meta_description, :size => "80x5", :class => "full_width"
+    %br
+
+  %h2= f.label :body
+  .options
+    - unless @artist.images.empty?
+      = render :partial => "admin/shared/image_options", :locals => {:images => @artist.images}
+  %div
+    = f.text_area :body, :size => "100x40", :class => "mceEditor"
+    %br
+
+  %div
+    = submit_tag "Save artist"
+    or
+    = link_to "cancel", admin_artists_path
+    = clear
+

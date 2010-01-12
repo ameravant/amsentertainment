@@ -1,0 +1,33 @@
+%h1= large_icon('Music') + ' ' + "Genres"
+%div.box
+  %span.hmenu
+    = icon 'Plus', new_admin_genre_path
+    = link_to "Add a new genre", new_admin_genre_path
+
+%table.full_width{ :cellspacing => "0" }
+  %thead
+    %tr
+      %th Title
+      %th Description
+      %th.center{ :style => "width: 65px;"} Options
+  - if @genres.total_pages > 1
+    %tfoot
+      %tr
+        %td{ :colspan => "3" }= will_paginate @genres
+  %tbody
+  -for genre in @genres do
+    %tr[genre]{ :class => cycle('odd','even') }
+      %td
+        %span.hmenu
+          .genre-title
+            = link_to(genre.title, [:edit, :admin, genre])
+      %td
+        %span.hmenu
+          .genre-description
+            = truncate(genre.description,80,"...")
+      %td
+        %span.hmenu
+          .genre-options
+            = icon "Write", [:edit, :admin, genre]
+            = trash_icon(genre, [:admin, genre], "#{genre.title}")
+      = clear

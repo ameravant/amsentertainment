@@ -1,0 +1,7 @@
+- content_for(:title) { "New Entertainment Type" }
+
+%h1
+  New Entertainment Type
+- form_for [:admin, @entertainment_type], :html => {:onsubmit => "form_submitted('Saving, please wait...')" } do |f|
+  = render :partial => "form", :locals => { :f => f }
+

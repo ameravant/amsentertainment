@@ -1,0 +1,20 @@
+- content_for :meta_title do
+  =@entertainment.title
+
+%h1= @entertainment.title
+-entertainment_attrb = []
+-unless @entertainment.entertainment_types.blank?
+  -@entertainment.entertainment_types.each do |t|
+    -entertainment_attrb << link_to(t.title, entertainments_path(:entertainment_type => t))
+
+=entertainment_attrb.join(", ") unless entertainment_attrb.blank?
+
+.entertainment
+  -if @entertainment.tag_list
+    -for tag in @entertainment.tag_list
+      - if params[:tag] == tag
+        = tag
+      - else
+        %li[tag]= link_to h(tag), entertainments_path(:tag => tag)
+    
+  =ninja_parse(@entertainment.body)

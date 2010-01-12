@@ -1,0 +1,13 @@
+%fieldset
+
+  = f.error_messages
+
+  %div{:class => "form-option #{cycle('even', 'odd')}"}
+    = f.label :title, "Title", :class => "big"
+    = f.text_field :title, :size => 50, :class => "big"
+  %div
+    = submit_tag "Save Entertainment Type"
+    or
+    = link_to "cancel", admin_entertainment_types_path
+    = clear
+

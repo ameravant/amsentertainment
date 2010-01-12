@@ -1,0 +1,12 @@
+%h1= large_icon('Music') + ' ' + "Artist Types"
+%div.box
+  %span.hmenu
+    = icon 'Plus', new_admin_artist_type_path
+    =link_to "Add a new artist type", new_admin_artist_type_path
+-unless @artist_types.blank?
+  %ul.artist_types
+    -@artist_types.each do |a| 
+      %li[a]
+        =link_to a.title, edit_admin_artist_type_path(a.id)
+        = icon 'Write', edit_admin_artist_type_path(a.id)
+        = trash_icon(a, admin_artist_type_path(a), "#{a.title}")

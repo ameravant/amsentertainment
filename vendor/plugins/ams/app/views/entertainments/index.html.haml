@@ -1,0 +1,20 @@
+- content_for :meta_title do
+  Entertainment
+=link_to "entertainment", entertainments_path
+%h1 
+  Entertainment
+  -if @entertainment_type 
+    =":: "+ @entertainment_type.title
+  -elsif params[:tag]
+    =":: "+ params[:tag]
+-content_for :side_column_2 do
+  = render :partial => "entertainments_nav", :locals => { :entertainment_types => @entertainment_types }
+.entertainment-box
+  -@entertainments.each do |a|
+    .entertainment 
+      = link_to a.title, a
+      %br
+      = a.blurb unless a.blurb.blank?
+      -unless a.images.blank?
+        .entertainment-pic
+          = link_to(tag(:img, :src => a.images[0].small_thumbnail, :alt => a.images[0].image_title), entertainment_path(a), :title => a.images[0].image_title)

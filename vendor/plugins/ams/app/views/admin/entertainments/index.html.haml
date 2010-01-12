@@ -1,0 +1,44 @@
+%h1= large_icon('Star') + ' ' + "Entertainment"
+%div.box
+  %span.hmenu
+    = icon 'Plus', new_admin_entertainment_path
+    = link_to "Add a new entertainment", new_admin_entertainment_path
+  %span.hmenu
+    = icon 'Folder2', admin_entertainment_types_path
+    = link_to "View entertainment types", admin_entertainment_types_path
+  
+%table.full_width{ :cellspacing => "0" }
+  %thead
+    %tr
+      %th Title
+      %th Assets
+      %th Images
+      %th.center{ :style => "width: 65px;"} Options
+  - if @entertainments.total_pages > 1
+    %tfoot
+      %tr
+        %td{ :colspan => "3" }= will_paginate @entertainments
+  %tbody
+  -for entertainment in @entertainments do
+    %tr[entertainment]{ :class => cycle('odd','even') }
+      %td
+        %span.hmenu
+          .entertainment-title
+            = link_to(entertainment.title, [:edit, :admin, entertainment])
+      %td
+        %span.hmenu
+          .entertainment-assets
+            = icon "Document", [:admin, entertainment, :assets]
+            = link_to entertainment.assets_count, [:admin, entertainment, :assets]
+      %td
+        %span.hmenu
+          .entertainment-images
+            = icon "Picture", [:admin, entertainment, :images]
+            = link_to entertainment.images_count, [:admin, entertainment, :images]
+            = image_tag(entertainment.images.sort_by(&:position).first.image.url(:icon), :class => "icon thumb") unless entertainment.images.empty?
+      %td
+        %span.hmenu
+          .entertainment-options
+            = icon "Write", [:edit, :admin, entertainment]
+            = trash_icon(entertainment, [:admin, entertainment], "#{entertainment.title}")
+      = clear

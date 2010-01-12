@@ -1,0 +1,8 @@
+%h2="Genre"
+%ul
+  -@genres.each do |g|
+    %li= link_to(g.title, artists_path(:genre => g))
+%h2="Artist Types"  
+%ul
+  -@artist_types.each do |at|
+    %li=link_to(at.title, artists_path(:artist_type => at))

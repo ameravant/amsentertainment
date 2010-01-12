@@ -1,0 +1,17 @@
+%fieldset
+
+  = f.error_messages
+
+  %div{:class => "form-option #{cycle('even', 'odd')}"}
+    = f.label :title, "Title", :class => "big"
+    = f.text_field :title, :size => 50, :class => "big"
+  %div{:class => "form-option #{cycle('even', 'odd')}"}
+    = f.label :description, "Description", :class => "big"
+    = f.text_area :description , :size => 50, :class => "big"
+    = clear
+  %div
+    = submit_tag "Save genre"
+    or
+    = link_to "cancel", admin_genres_path
+    = clear
+

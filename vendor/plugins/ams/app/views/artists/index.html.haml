@@ -1,0 +1,25 @@
+- content_for :meta_title do
+  Artists
+%h1 
+  Artists 
+  -if @genre
+    =":: "+ @genre.title
+  -if @artist_type 
+    =":: "+ @artist_type.title
+-if @genre.description
+  .genre_description
+    =@genre.description
+-content_for :side_column_2 do
+  = render :partial => "artists_nav", :locals => { :genres => @genres, :artist_types => @artist_types }
+.artist-box
+  -@artists.each do |a|
+    .artist 
+      = link_to a.title, a
+      %br
+      - a.price.times do
+        = icon "Currency Dollar",'','','','16x16','green'
+      %br
+      = a.blurb unless a.blurb.blank?
+      -unless a.images.blank?
+        .artist-pic
+          = link_to(tag(:img, :src => a.images.sort_by(&:position).first.small_thumbnail, :alt => a.images.sort_by(&:position).first.image_title), artist_path(a), :title => a.images.sort_by(&:position).first.image_title)

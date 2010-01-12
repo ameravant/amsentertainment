@@ -1,0 +1,53 @@
+%h1= large_icon('Music') + ' ' + "Artists"
+%div.box
+  %span.hmenu
+    = icon 'Plus', new_admin_artist_path
+    = link_to "Add a new artist", new_admin_artist_path
+  %span.hmenu
+    = icon 'Folder2', admin_artist_types_path
+    = link_to "View artist types", admin_artist_types_path
+  %span.hmenu
+    = icon 'Folder2', admin_genres_path
+    = link_to "View artist genres", admin_genres_path
+  
+%table.full_width{ :cellspacing => "0" }
+  %thead
+    %tr
+      %th Title
+      %th Price
+      %th Assets
+      %th Images
+      %th.center{ :style => "width: 65px;"} Options
+  - if @artists.total_pages > 1
+    %tfoot
+      %tr
+        %td{ :colspan => "3" }= will_paginate @artists
+  %tbody
+  -for artist in @artists do
+    %tr[artist]{ :class => cycle('odd','even') }
+      %td
+        %span.hmenu
+          .artist-title
+            = link_to(artist.title, [:edit, :admin, artist])
+      %td
+        %span.hmenu
+          .artist-price
+            - artist.price.times do
+              = icon "Currency Dollar",'','','','16x16','green'
+      %td
+        %span.hmenu
+          .artist-assets
+            = icon "Document", [:admin, artist, :assets]
+            = link_to artist.assets_count, [:admin, artist, :assets]
+      %td
+        %span.hmenu
+          .artist-images
+            = icon "Picture", [:admin, artist, :images]
+            = link_to artist.images_count, [:admin, artist, :images]
+            = image_tag(artist.images.sort_by(&:position).first.image.url(:icon), :class => "icon thumb") unless artist.images.empty?
+      %td
+        %span.hmenu
+          .artist-options
+            = icon "Write", [:edit, :admin, artist]
+            = trash_icon(artist, [:admin, artist], "#{artist.title}")
+      = clear

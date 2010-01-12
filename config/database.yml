@@ -1,0 +1,17 @@
+--- 
+production: 
+  username: amsenter_admin
+  adapter: mysql
+  server: localhost
+  database: amsenter_db
+  password: P:&E|gTn
+development: 
+  timeout: 5000
+  adapter: sqlite3
+  database: db/development.sqlite3
+  pool: 5
+test: 
+  timeout: 5000
+  adapter: sqlite3
+  database: db/test.sqlite3
+  pool: 5

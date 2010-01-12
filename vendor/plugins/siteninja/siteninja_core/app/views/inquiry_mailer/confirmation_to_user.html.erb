@@ -1,0 +1,15 @@
+<div>
+  <%= "Hi %s" % @inquiry.name %>,
+  <%= @confirmation_message %>
+</div>
+  ______________________________________________
+  
+<div>
+ <p>Your original inquiry: <blockquote>"<%= @inquiry.inquiry %>"</blockquote></p>
+<div>
+<div>
+  <p>Email: <%= h @inquiry.email %></p>
+  <%- unless @inquiry.phone.blank? -%>
+   <p>Phone: <%= h @inquiry.phone %></p>
+  <%- end -%>
+</div>
