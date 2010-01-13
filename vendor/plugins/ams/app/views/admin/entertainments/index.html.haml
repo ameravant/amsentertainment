@@ -39,6 +39,16 @@
       %td
         %span.hmenu
           .entertainment-options
+            - if current_user.has_role(["Admin", "Editor"])
+              - if entertainment.images_count > 0
+                - if entertainment.features_count > 0
+                  = defeature_icon(entertainment, "/admin/entertainments/#{entertainment.to_param}/features/1", entertainment.title, "inline")
+                  = feature_icon(entertainment, [:admin, entertainment, :features], entertainment.title, "none")
+                -else
+                  = feature_icon(entertainment, [:admin, entertainment, :features], entertainment.title, "inline")
+                  = defeature_icon(entertainment, "/admin/entertainments/#{entertainment.to_param}/features/1", entertainment.title, "none")
+              -else
+                = disabled_feature_icon(entertainment, [:new, :admin, entertainment, :feature], entertainment.title)
             = icon "Write", [:edit, :admin, entertainment]
             = trash_icon(entertainment, [:admin, entertainment], "#{entertainment.title}")
       = clear
