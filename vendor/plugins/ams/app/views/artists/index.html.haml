@@ -2,13 +2,14 @@
   Artists
 %h1 
   Artists 
-  -if @genre
-    =":: "+ @genre.title
   -if @artist_type 
     =":: "+ @artist_type.title
--if @genre.description
+  -if @genre
+    =":: "+ @genre.title
+-if @genre && @genre.description
   .genre_description
     =@genre.description
+
 -content_for :side_column_2 do
   = render :partial => "artists_nav", :locals => { :genres => @genres, :artist_types => @artist_types }
 .artist-box
