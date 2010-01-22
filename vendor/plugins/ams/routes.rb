@@ -2,10 +2,10 @@ resources :artists, :artist_types, :genres, :entertainment_types, :entertainment
 
 namespace :admin do |admin|
   admin.resources :genres, :artist_types, :entertainment_types
-  admin.resources :artists, :has_many => [:assets], :member => {:reorder => :put} do |artist|
+  admin.resources :artists, :has_many => [:assets, :features], :member => {:reorder => :put} do |artist|
     artist.resources :images, :member => { :reorder => :put }, :collection => { :reorder => :put }
   end
-  admin.resources :entertainments, :has_many => [:assets], :member => {:reorder => :put} do |entertainment|
+  admin.resources :entertainments, :has_many => [:assets, :features], :member => {:reorder => :put} do |entertainment|
     entertainment.resources :images, :member => { :reorder => :put }, :collection => { :reorder => :put }
   end
 end

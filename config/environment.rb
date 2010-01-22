@@ -13,6 +13,8 @@ Rails::Initializer.run do |config|
   else
     config.action_mailer.default_url_options = { :host => "localhost:3000" }
   end
+  config.plugins = [ :siteninja_core, :all, :ams ]
+  # config.gem "will_paginate"
 end
 
 require 'hirb'
