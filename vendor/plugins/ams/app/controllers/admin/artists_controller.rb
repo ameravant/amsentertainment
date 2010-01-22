@@ -11,6 +11,7 @@ class Admin::ArtistsController < AdminController
     add_breadcrumb "Artists", admin_artists_path
     add_breadcrumb "New"
     @artist = Artist.new
+    @artist.price = 1
     @artist_types = ArtistType.all
     @genres = Genre.all
   end
