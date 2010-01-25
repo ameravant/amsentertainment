@@ -20,3 +20,6 @@
   =ninja_parse(@artist.body)
   -if !@clips.blank?
     =render :partial => "clip", :collection => @clips 
+    
+-content_for :side_column_2 do
+  = render :partial => "artists_nav", :locals => { :genres => @genres, :artist_types => @artist_types }

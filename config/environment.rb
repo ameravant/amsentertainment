@@ -16,7 +16,7 @@ Rails::Initializer.run do |config|
   config.plugins = [ :siteninja_core, :all, :ams ]
   # config.gem "will_paginate"
 end
-
+require 'searchlogic'
 require 'hirb'
 Hirb.enable
 

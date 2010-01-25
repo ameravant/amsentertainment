@@ -1,3 +1,11 @@
-.artist-pic{
-	float: right;
-}
+a { color: #D43A38; }
+a:visited { color: #9F0D09; }
+.artist-box { list-style: none; padding: 0; margin: 0; }
+  .artist-box li { display: block; margin: 0 0 20px 0; }
+    .artist-pic { float: right; padding: 10px; margin: 10px 0 0 10px; border: 1px solid #ccc; }
+    .artist-box h2 { margin: 0; line-height: 1em; }
+    .artist-box p { margin: 0; font-size: .9em; line-height: 1.5em; color: #666; }
+.sidebar h2 { font-size: 1.6em; margin: 0 0 10px; }
+.sidebar .submenu-inner li a { border-bottom:1px solid #9F0D09 !important; color:#9F0D09 !important; font-size: 1.2em; line-height: 1.2em !important; padding: 5px 0 5px 10px; }
+  .sidebar .submenu-inner li a:hover { color: #fff !important; }
+  .sidebar .submenu-inner { margin: 0 0 30px 0; }

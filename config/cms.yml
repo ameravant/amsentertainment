@@ -1,39 +1,39 @@
 --- 
+keys: 
+  sharethis: 998f13df-36bb-4d5b-96fc-c750d3a55a99
+  google_maps: 
 modules: 
   blog: true
-  product: false
-  galleries: false
-  store: false
   documents: false
-  version: 1.0.0
   events: false
-  links: true
-  members: true
-  pages: true
+  store: false
+  galleries: false
   newsletters: false
-keys: 
-  google_maps: 
-  sharethis: 998f13df-36bb-4d5b-96fc-c750d3a55a99
+  pages: true
+  version: 1.0.0
+  product: false
+  members: true
+  links: true
 development_keys: 
   google_maps: ABQIAAAAcFCYQRnwVUthPL-ySCSjJBTJQa0g3IQ9GZqIMmInSLzwtGDKaBS8HXDFpTZcTkemWroqwX691T1xpg
-website: 
-  name: AMS Entertainment
-  logo_position: top
-  icon_domain: http://www.site-ninja.com
-  demo: false
-  demo_message: 
-  domain: amsentertainment.com
-  template: t3c7
 features: 
   testimonials: true
   feature_box: true
   event_registration: true
+website: 
+  logo_position: top
+  name: AMS Entertainment
+  demo_message: 
+  icon_domain: http://www.site-ninja.com
+  domain: amsentertainment.com
+  demo: false
+  template: t3c7
 site_settings: 
-  third_level_menu: left
-  events_title: 
   event_title: 
   blog_title: Blog
   file_up_size: 20
-  links_title: Directory Listing
   article_title: Post
+  links_title: Directory Listing
+  events_title: 
+  third_level_menu: left
   link_title: Resource
