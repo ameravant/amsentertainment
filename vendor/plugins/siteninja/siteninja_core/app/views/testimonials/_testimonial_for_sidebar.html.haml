@@ -1,5 +1,5 @@
-- content_for :side_column do
-  -unless testimonial.blank?
+- unless testimonial.blank?
+  - content_for :side_column do
     %div.testimonial
       %blockquote
         = testimonial.quote
