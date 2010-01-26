@@ -17,7 +17,7 @@ class ArtistsController < ApplicationController
 
   def show
     @page = Page.find_by_permalink("artists")
-    @clips = @artist.assets.find_all_by_file_content_type("audio/mpeg")
+    @clips = @artist.assets.find_all_by_file_content_type("audio/mpg", "audio/mpeg")
   end
 
 

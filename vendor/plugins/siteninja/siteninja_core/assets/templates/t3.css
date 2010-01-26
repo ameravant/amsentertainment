@@ -61,7 +61,7 @@ td, th { padding: 8px; }
 			#content-outer a:hover, #pre-content-outer a:hover { color: #fff;  }
 		#content-middle { width: 900px; margin: 0 auto; text-align: center }
 		#content-inner { min-height: 600px; padding: 0 15px 20px; text-align: left; }
-			.with-side-column #main-column, .with-side-columns #main-column { float: left; width: 530px; }
+			.with-side-column #main-column, .with-side-columns #main-column { float: left; width: 470px; }
 			.with-side-column-2 #main-column { float: left; width: 705px; }
 			#side-column { float: right; width: 300px;}
       #side-column-2 { float: left; margin: 0 15px 0 0; width: 150px; }

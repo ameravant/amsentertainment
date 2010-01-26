@@ -98,7 +98,7 @@
                 = flash_div
           #content-outer
             #content-middle
-              #content-inner{:class => ((@content_for_side_column and @content_for_side_column_2) ? "with-side-columns" : ((@content_for_side_column or @content_for_side_column_2) ? "with-side-column" : ""))}
+              #content-inner{:class => ((@content_for_side_column and @content_for_side_column_2) ? "with-side-columns" : (@content_for_side_column ? "with-side-column" : (@content_for_side_column_2 ? "with-side-column" : "")))}
                 - if @content_for_side_column_2
                   #side-column-2.sidebar
                     = yield :side_column_2

@@ -1,5 +1,36 @@
 - content_for :meta_title do
   =@artist.title
+- content_for :side_column do
+  .images
+    - unless @artist.images.empty?
+      - image = @artist.images.sort_by(&:position).first
+      = link_to image_tag(image.image.url(:medium)), image.image.url(:large), :rel => "gallery", :title => h(image.caption), :class => "fancy"
+      = "<div class=\"caption\">#{image.caption}</div>" unless image.caption.blank?
+      = clear
+      - if @artist.images_count > 1
+        .scrollable
+          .items
+            - @artist.images.sort_by(&:position).each_with_index do |image, i|
+              - unless i == 0
+                .image
+                  = link_to image_tag(image.image.url(:thumb)), image.image.url(:large), :rel => "gallery", :title => h(image.caption), :class => "fancy"
+          = clear
+        - if @artist.images_count > 5
+          = "<a class=\"prev\">&lt;</a>"
+          .navi
+          = "<a class=\"next\">&gt;</a>"
+          = "<span class=\"gray small\">#{pluralize(@artist.images_count, 'image')}</span>"
+          = clear
+    - content_for :head do
+      :javascript
+        jQuery(function() {            
+        // initialize scrollable  
+        jQuery("div.scrollable").scrollable({
+        size: 4,
+        clickable: false,
+        loop: true
+        });
+        });
 
 %h1= @artist.title
 // Combine the two types of artist attributes and output
@@ -13,7 +44,6 @@
     -artist_attrb << link_to(t.title, artists_path(:artist_type => t))
 
 =artist_attrb.join(", ") unless artist_attrb.blank?
-
 .artist
   - @artist.price.times do
     = icon "Currency Dollar",'','','','24x24','green'
