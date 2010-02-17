@@ -22,6 +22,10 @@ class TestimonialsController < ApplicationController
       @owner = Gallery.find(params[:gallery_id])
     elsif params[:product_id]
       @owner = Product.find(params[:product_id])
+    elsif params[:entertainment_id]
+      @owner = Entertainment.find(params[:entertainment_id])
+    elsif params[:artist_id]
+     @owner = Artist.find(params[:artist_id])
     elsif params[:page_id]
       @owner = Page.find_by_permalink(params[:page_id])
       @page = Page.find_by_permalink(params[:page_id])
