@@ -16,6 +16,7 @@
       %th Title
       %th Price
       %th Assets
+      %th Testimonials
       %th Images
       %th.center{ :style => "width: 65px;"} Options
   - if @artists.total_pages > 1
@@ -39,6 +40,11 @@
           .artist-assets
             = icon "Document", [:admin, artist, :assets]
             = link_to artist.assets_count, [:admin, artist, :assets]
+      %td
+        %span.hmenu            
+          .entertainment-testimonials
+            = icon "Bubble 3", admin_artist_testimonials_path(artist)
+            = link_to(artist.testimonials_count, admin_artist_testimonials_path(artist))
       %td
         %span.hmenu
           .artist-images

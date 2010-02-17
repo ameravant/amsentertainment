@@ -12,6 +12,7 @@
     %tr
       %th Title
       %th Assets
+      %th Testimonials
       %th Images
       %th.center{ :style => "width: 65px;"} Options
   - if @entertainments.total_pages > 1
@@ -30,6 +31,11 @@
           .entertainment-assets
             = icon "Document", [:admin, entertainment, :assets]
             = link_to entertainment.assets_count, [:admin, entertainment, :assets]
+      %td
+        %span.hmenu
+          .entertainment-testimonials
+            = icon "Bubble 3", admin_entertainment_testimonials_path(entertainment)
+            = link_to(entertainment.testimonials.size, admin_entertainment_testimonials_path(entertainment))
       %td
         %span.hmenu
           .entertainment-images

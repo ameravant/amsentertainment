@@ -18,6 +18,7 @@ class EntertainmentsController < ApplicationController
 
   def show
     @page = Page.find_by_permalink("entertainment")
+    @testimonial = Testimonial.find(:all, :conditions => ["quotable_id = ?" , @entertainment.id]).sort_by(&:rand).first #Select a random testimonial
   end
 
 
