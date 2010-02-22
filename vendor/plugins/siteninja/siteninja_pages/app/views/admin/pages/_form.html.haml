@@ -28,11 +28,12 @@
       %br
       = label_tag :category, "Filter by Category"
       = collection_select(:page, :article_category_id, @article_categories, :id, :name, {:include_blank => "All"})
-
     - if @cms_config['features']['testimonials']
-      %p
-        = f.check_box :show_testimonials
-        = f.label :show_testimonials, "Show Testimonials on this page?"
+      %br
+      = f.check_box :show_featured_testimonial
+      = f.label :show_featured_testimonial, "Show Testimonial in Sidebar"
+      %br
+      %div{ :class => "small gray", :style => "margin: 0 0 0 20px;" } Displays a random featured testimonial.
     -if @cms_config['modules']['events']
       %p
         = f.check_box :show_events
