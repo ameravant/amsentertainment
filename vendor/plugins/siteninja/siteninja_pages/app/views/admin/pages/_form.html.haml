@@ -77,9 +77,13 @@
     = render :partial => "admin/shared/image_options", :locals => {:images => @page.images}
   - unless @page.testimonials.empty?
     = render :partial => "admin/testimonials/testimonial_options", :locals => {:testimonials => @page.testimonials}
-
 %div
   = f.text_area :body, :size => "100x40", :class => "mceEditor"
+
+%h2= f.label :right_column
+
+%div
+  = f.text_area :right_column, :size => "100x40", :class => "mceEditor"
 
 - fancy_submit admin_pages_path do
   = submit_tag "Save page"
