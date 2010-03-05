@@ -48,16 +48,16 @@ page_tree.reverse!
             <%- content_for :side_column_2 do -%>
               <ul class="submenu-inner">
                    <%- for page in siblings -%>
-                      <%- case page.permalink -%>
-                        <%- when "blog"-%>
-                          <li <%= "class=\"selected\"" if top_page == page %>><%= link_to @cms_config['site_settings']['blog_title'], "/#{page.permalink}" %></li>
-                        <%- when "events"-%>
-                          <li <%= "class=\"selected\"" if top_page == page %>><%= link_to @cms_config['site_settings']['events_title'], "/#{page.permalink}" %></li>
-                        <%- when "links"-%>
-                          <li <%= "class=\"selected\"" if top_page == page %>><%= link_to @cms_config['site_settings']['links_title'], "/#{page.permalink}" %></li>
-                        <%- else -%>
-                          <li <%= "class=\"selected\"" if top_page == page %>><%= link_to page.title, "/#{page.permalink}" %></li>
-                      <%- end -%>
+                    <%- case page.permalink -%>
+                      <%- when "blog"-%>
+                        <li <%= "class=\"selected\"" if top_page == page %>><%= link_to @cms_config['site_settings']['blog_title'], "/#{path_safe(@cms_config['site_settings']['blog_title'])}" %></li>
+                      <%- when "events"-%>
+                        <li <%= "class=\"selected\"" if top_page == page %>><%= link_to @cms_config['site_settings']['events_title'], "/#{path_safe(@cms_config['site_settings']['events_title'])}" %></li>
+                      <%- when "links"-%>
+                        <li <%= "class=\"selected\"" if top_page == page %>><%= link_to @cms_config['site_settings']['links_title'], "/#{path_safe(@cms_config['site_settings']['links_title'])}" %></li>
+                      <%- else -%>
+                        <li <%= "class=\"selected\"" if top_page == page %>><%= link_to page.title, "/#{page.permalink}" %></li>
+                    <%- end -%>
                   <%- end -%>
               </ul>
               <%= clear %>
@@ -65,8 +65,17 @@ page_tree.reverse!
           <%- else -%>
             <div class="submenu-middle"><ul class="submenu-inner" id="submenu-<%= i+1 %>">
               <%- for page in siblings -%>
-                <li><%= link_to page.title, "/#{page.permalink}" %></li>
-              <%- end -%>
+                <%- case page.permalink -%>
+                  <%- when "blog"-%>
+                    <li <%= "class=\"selected\"" if top_page == page %>><%= link_to @cms_config['site_settings']['blog_title'], "/#{path_safe(@cms_config['site_settings']['blog_title'])}" %></li>
+                  <%- when "events"-%>
+                    <li <%= "class=\"selected\"" if top_page == page %>><%= link_to @cms_config['site_settings']['events_title'], "/#{path_safe(@cms_config['site_settings']['events_title'])}" %></li>
+                  <%- when "links"-%>
+                    <li <%= "class=\"selected\"" if top_page == page %>><%= link_to @cms_config['site_settings']['links_title'], "/#{path_safe(@cms_config['site_settings']['links_title'])}" %></li>
+                  <%- else -%>
+                    <li <%= "class=\"selected\"" if top_page == page %>><%= link_to page.title, "/#{page.permalink}" %></li>
+                <%- end -%>
+                <%- end -%>
             </ul></div>
           <%- end -%>
         <%- end -%>
