@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100122210712) do
+ActiveRecord::Schema.define(:version => 20100304225548) do
 
   create_table "article_categories", :force => true do |t|
     t.string  "name"
@@ -54,14 +54,15 @@ ActiveRecord::Schema.define(:version => 20100122210712) do
     t.string   "title"
     t.string   "permalink"
     t.integer  "price"
-    t.integer  "images_count",     :default => 0
-    t.integer  "assets_count",     :default => 0
+    t.integer  "images_count",       :default => 0
+    t.integer  "assets_count",       :default => 0
     t.text     "body"
     t.text     "blurb"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "meta_description"
-    t.integer  "features_count",   :default => 0
+    t.integer  "features_count",     :default => 0
+    t.integer  "testimonials_count", :default => 0
   end
 
   create_table "artists_genres", :id => false, :force => true do |t|
@@ -110,14 +111,15 @@ ActiveRecord::Schema.define(:version => 20100122210712) do
   create_table "entertainments", :force => true do |t|
     t.string   "title"
     t.string   "permalink"
-    t.integer  "images_count",     :default => 0
-    t.integer  "assets_count",     :default => 0
+    t.integer  "images_count",       :default => 0
+    t.integer  "assets_count",       :default => 0
     t.text     "body"
     t.text     "blurb"
     t.string   "meta_description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "features_count",   :default => 0
+    t.integer  "features_count",     :default => 0
+    t.integer  "testimonials_count", :default => 0
   end
 
   create_table "features", :force => true do |t|
@@ -227,6 +229,7 @@ ActiveRecord::Schema.define(:version => 20100122210712) do
     t.boolean  "show_article_cats"
     t.boolean  "show_testimonials"
     t.boolean  "show_featured_testimonial",             :default => true
+    t.text     "right_column"
   end
 
   create_table "people", :force => true do |t|

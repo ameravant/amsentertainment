@@ -38,6 +38,7 @@ class Admin::TestimonialsController < AdminController
 
   def index
     if @owner != nil
+      add_breadcrumb "#{@owner.title}", [:edit, :admin, @owner]
       @testimonials = @owner.testimonials
     else
       @testimonials = Testimonial.find(:all)
@@ -62,6 +63,10 @@ class Admin::TestimonialsController < AdminController
       @owner = Article.find params[:article_id]
     elsif params[:gallery_id]
       @owner = Gallery.find params[:gallery_id]
+    elsif params[:entertainment_id]
+     @owner = Entertainment.find(params[:entertainment_id])
+    elsif params[:artist_id]
+     @owner = Artist.find(params[:artist_id])
     elsif params[:product_id]
       @owner = Product.find params[:product_id]
     elsif params[:page_id]

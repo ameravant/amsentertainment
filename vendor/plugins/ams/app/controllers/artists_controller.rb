@@ -17,7 +17,11 @@ class ArtistsController < ApplicationController
 
   def show
     @page = Page.find_by_permalink("artists")
-    @clips = @artist.assets.find_all_by_file_content_type("audio/mpg", "audio/mpeg")
+    if @artist.images
+      @images = @artist.images
+    end
+    @clips = @artist.assets.find(:all, :conditions => ["file_file_name LIKE ?", "%.mp3"])
+    @testimonial = Testimonial.find(:all, :conditions => ["quotable_id = ?" , @artist.id]).sort_by(&:rand).first #Select a random testimonial
   end
 
 

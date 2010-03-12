@@ -13,3 +13,7 @@
   = ninja_parse(@page.body)
 - else
   = @page.body
+
+-content_for :side_column do
+  -if @page.right_column
+    =@page.right_column
