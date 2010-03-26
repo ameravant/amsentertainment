@@ -8,6 +8,8 @@ class EntertainmentsController < ApplicationController
       # Filter entertainment by tag
       found_entertainments = Entertainment.find_tagged_with(params[:tag])
       add_breadcrumb params[:tag]
+    elsif !params[:entertainment_type].blank?
+      found_entertainments = EntertainmentType.find(params[:entertainment_type]).entertainments
     else
       found_entertainments = Entertainment.all    
     end
