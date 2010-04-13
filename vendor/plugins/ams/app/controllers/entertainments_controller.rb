@@ -3,14 +3,18 @@ class EntertainmentsController < ApplicationController
   before_filter :find_entertainment, :only => [:show]
   before_filter :find_nav
   def index
-    add_breadcrumb "Entertainment"
+    
     if !params[:tag].blank?
       # Filter entertainment by tag
       found_entertainments = Entertainment.find_tagged_with(params[:tag])
       add_breadcrumb params[:tag]
     elsif !params[:entertainment_type].blank?
       found_entertainments = EntertainmentType.find(params[:entertainment_type]).entertainments
+      @entertainment_type = EntertainmentType.find_by_id(params[:entertainment_type])
+      add_breadcrumb "Entertainment", entertainments_path
+      add_breadcrumb @entertainment_type.title
     else
+      add_breadcrumb "Entertainment"
       found_entertainments = Entertainment.all    
     end
     @page = Page.find_by_permalink("entertainment")
@@ -24,6 +28,9 @@ class EntertainmentsController < ApplicationController
       @images = @entertainment.images
     end
     @testimonial = Testimonial.find(:all, :conditions => ["quotable_id = ?" , @entertainment.id]).sort_by(&:rand).first #Select a random testimonial
+    @entertainment_types = EntertainmentType.all
+    add_breadcrumb "Entertainment", entertainments_path
+    add_breadcrumb @entertainment.title
   end
 
 

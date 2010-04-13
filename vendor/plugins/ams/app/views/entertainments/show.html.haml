@@ -18,3 +18,6 @@
         %li[tag]= link_to h(tag), entertainments_path(:tag => tag)
     
   =ninja_parse(@entertainment.body)
+  
+-content_for :side_column_2 do
+  = render :partial => "entertainments_nav", :locals => { :entertainment_types => @entertainment_types }
