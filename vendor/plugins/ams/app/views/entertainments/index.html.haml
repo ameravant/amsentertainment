@@ -13,7 +13,7 @@
     %li.entertainment 
       -unless a.images.blank?
         .entertainment-pic
-          = link_to(tag(:img, :src => a.images.sort_by(&:position).first.small_thumbnail, :alt => a.images.sort_by(&:position).first.image_title), artist_path(a), :title => a.images.sort_by(&:position).first.image_title)
+          = link_to(tag(:img, :src => a.images.sort_by(&:position).first.small_thumbnail, :alt => a.images.sort_by(&:position).first.image_title), entertainment_path(a), :title => a.images.sort_by(&:position).first.image_title)
       %h2= link_to a.title, a
       
       %p= a.blurb unless a.blurb.blank?
