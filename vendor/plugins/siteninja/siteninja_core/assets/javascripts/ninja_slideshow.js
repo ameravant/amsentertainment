@@ -15,6 +15,21 @@ jQuery(document).ready(function() {
   });
 });
 jQuery(document).ready(function() {
+  jQuery('#images-narrow').galleryView({
+    panel_width: 470,
+    panel_height: 264,
+    frame_width: 85,
+    frame_height: 55,
+    overlay_color: '#222',
+    overlay_height: 80,
+    overlay_text_color: 'white',
+    caption_text_color: '#222',
+    background_color: '#333',
+    nav_theme: 'custom',
+    transition_speed: 800
+  });
+});
+jQuery(document).ready(function() {
   jQuery('#images-full').galleryView({
     panel_width: 880,
     panel_height: 600,
