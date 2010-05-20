@@ -11,6 +11,7 @@
   %thead
     %tr
       %th Title
+      %th Price
       %th Assets
       %th Testimonials
       %th Images
@@ -26,6 +27,11 @@
         %span.hmenu
           .entertainment-title
             = link_to(entertainment.title, [:edit, :admin, entertainment])
+      %td
+        %span.hmenu
+          .entertainment-price
+            - entertainment.price.times do
+              = icon "Currency Dollar",'','','','16x16','green'
       %td
         %span.hmenu
           .entertainment-assets

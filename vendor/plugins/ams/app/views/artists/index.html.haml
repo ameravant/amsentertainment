@@ -19,10 +19,10 @@
         .artist-pic
           = link_to(tag(:img, :src => a.images.sort_by(&:position).first.small_thumbnail, :alt => a.images.sort_by(&:position).first.image_title), artist_path(a), :title => a.images.sort_by(&:position).first.image_title)
       %h2= link_to a.title, a
-      - unless a.price.blank?
+      - if !a.price.blank? and a.price > 0
         %div
           Price: 
           - a.price.times do
-            = icon "Currency Dollar",'','','','16x16','green'
+            = icon "Currency Dollar",'/pricing','','','16x16','green'
       %p= a.blurb unless a.blurb.blank?
       = clear

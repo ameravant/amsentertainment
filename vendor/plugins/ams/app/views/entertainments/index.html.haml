@@ -13,6 +13,11 @@
   -@entertainments.each do |a|
     .entertainment 
       = link_to a.title, a
+      - if !a.price.blank? and a.price > 0
+        %div
+          Price: 
+          - a.price.times do
+            = icon "Currency Dollar",'/pricing','','','16x16','green'
       %br
       = a.blurb unless a.blurb.blank?
       -unless a.images.blank?

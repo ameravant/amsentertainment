@@ -5,6 +5,12 @@
   %div{:class => "form-option #{cycle('even', 'odd')}"}
     = f.label :title, "Title", :class => "big"
     = f.text_field :title, :size => 50, :class => "big"
+  %div{:class => "form-option-radio #{cycle('even', 'odd')}"}
+    Price
+    %br
+    - (1..5).each do |p| 
+      = label_tag "artist_price_#{p}", p 
+      = f.radio_button :price, p
   %div{:class => "form-option #{cycle('even', 'odd')}"}
     .options-title Entertainment Types
     .options

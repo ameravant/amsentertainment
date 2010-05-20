@@ -22,13 +22,30 @@
             %span{:class => "small red"} *required
         %tr
           %td= p.label :phone
-          %td= p.text_field :phone, :size => 20
-        %tr.top
           %td
-            = f.label :inquiry, "Your message"
-            %br
+            = p.text_field :phone, :size => 20
             %span{:class => "small red"} *required
+        %tr
+          %td= label_tag :event_date
           %td
+            = date_select('event', 'event_date', :order => [:month, :day, :year])
+        %tr
+          %td= label_tag "event[event_loc]", "Event Location" 
+          %td= text_field_tag "event[event_loc]", nil, :size => 67
+        %tr
+          %td= label_tag :start_time
+          %td= time_select "event", "start_time", {:twelve_hour => true}
+        %tr
+          %td= label_tag :end_time
+          %td= time_select "event", "end_time", {:twelve_hour => true}
+        %tr.top
+          %td{:colspan => "2"}
+            = label_tag "event[hear_about]", "How did you hear about us?"
+            = text_area_tag "event[hear_about]", nil, :size => "60x8"
+        %tr.top
+          %td{:colspan => "2"}
+            = f.label :inquiry, "Questions/Comments?"
+            %span{:class => "small red"} *required
             = f.text_area :inquiry,  :size => "60x8"
             = text_field_tag "company", nil, :size => 1, :id => "inquiry_company"
         -if @cms_config['modules']['newsletters']

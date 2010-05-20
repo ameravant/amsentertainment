@@ -13,12 +13,13 @@ class InquiriesController < ApplicationController
   def create
     return unless params[:company].blank? # spam bots will fill this hidden field out
     @groups = PersonGroup.only_public
+    # @event_date = Date.civil(params[:range][:"event_date(1i)"].to_i,params[:range][:"event_date(2i)"].to_i,params[:range][:"event_date(3i)"].to_i)
     params[:person][:email] = params[:inquiry][:email]
     #this check occurs to make sure people cannot set themselves to unauthorized groups
     #valid_groups = params[:person][:person_group_ids].reject{|p| !@groups.collect(&:id).include?(p)}
     @person = Person.find_or_create_by_email(params[:person])
     if !@person.valid?
-      flash[:error] = "Please enter your first and last name"
+      flash[:error] = "Please make sure you enter your first and last name, and phone"
       @inquiry = Inquiry.new(params[:inquiry])
       render :action => 'new'
     else
@@ -29,9 +30,12 @@ class InquiriesController < ApplicationController
       params[:inquiry][:name] ="#{params[:person][:first_name]} #{params[:person][:last_name]}"
       params[:inquiry][:person_id] = @person.id
       @inquiry = Inquiry.new(params[:inquiry])
+      @event_details = params[:event]
       if !@inquiry.save
         render :action => "new"
       else
+        InquiryMailer.deliver_notification_to_admin(@inquiry, @event_details)
+        InquiryMailer.deliver_confirmation_to_user(@inquiry)
         @inquiry_page = Page.find_by_permalink!('inquire')
         @page = Page.find_by_permalink!('inquiry_received') # used in create view
         add_breadcrumb @inquiry_page.name, "/#{@inquiry_page.permalink}"

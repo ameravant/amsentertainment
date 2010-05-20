@@ -8,7 +8,7 @@ class Person < ActiveRecord::Base
   has_many :images, :as => :viewable, :dependent => :destroy
   has_many :features, :as => :featurable, :dependent => :destroy
   has_many :assets, :as => :attachable, :dependent => :destroy
-  validates_presence_of :first_name, :last_name
+  validates_presence_of :first_name, :last_name, :phone
   validates_uniqueness_of :email, :message => "is an email address already in the system"
   validates_format_of :email, :with => /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/, :message => "is not a valid email address", :allow_blank => true
   named_scope :active, :conditions => { :active => true }

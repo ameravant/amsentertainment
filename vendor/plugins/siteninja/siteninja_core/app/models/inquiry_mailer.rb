@@ -1,8 +1,8 @@
 class InquiryMailer < ActionMailer::Base
 
-  def notification_to_admin(inquiry)
+  def notification_to_admin(inquiry, event_details)
     setup_email(Setting.first.inquiry_notification_email, "New inquiry received (\##{inquiry.id})")
-    body :inquiry => inquiry
+    body :inquiry => inquiry, :event_details => event_details
   end
   
   def confirmation_to_user(inquiry)
