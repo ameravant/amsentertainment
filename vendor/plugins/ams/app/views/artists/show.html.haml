@@ -1,7 +1,7 @@
 - content_for :meta_title do
   =@artist.title
 - content_for :side_column do
-  .images
+  .artist-details
     - unless @artist.images.empty?
       - image = @artist.images.sort_by(&:position).first
       = link_to image_tag(image.image.url(:medium)), image.image.url(:large), :rel => "gallery", :title => h(image.caption), :class => "fancy"
@@ -20,7 +20,11 @@
           .navi
           = "<a class=\"next\">&gt;</a>"
           = "<span class=\"gray small\">#{pluralize(@artist.images_count, 'image')}</span>"
-          = clear
+    = clear  
+    -if !@clips.blank?
+      %h2 Audio Clips
+      %ul{:class => "song_list"}
+        = render :partial => "clip", :collection => @clips 
     - content_for :head do
       :javascript
         jQuery(function() {            
@@ -48,8 +52,7 @@
   - @artist.price.times do
     = icon "Currency Dollar",'','','','24x24','green'
   =ninja_parse(@artist.body)
-  -if !@clips.blank?
-    =render :partial => "clip", :collection => @clips 
+
     
 -content_for :side_column_2 do
   = render :partial => "artists_nav", :locals => { :genres => @genres, :artist_types => @artist_types }

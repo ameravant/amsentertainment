@@ -227,5 +227,11 @@ dd.form-option { padding-left: 0; margin: 0 0 10px !important; }
   .testimonial.inline blockquote { font-size: 1.2em; }
 #template-form { position: absolute; right: 0;}
 .options { float: right; width: 250px; }
+.song_list { margin: 0; padding: 0; list-style: none; }
+  .song_list li { line-height: 17px; clear: both; margin: 0 0 5px;}
+  .song_list div { display: block; float: left; line-height: 17px; padding: 0 5px 0; }
 
-
+.artist-details { width: 200px; padding: 10px; float: right; margin: 20px 0 20px 20px; overflow: hidden; border: #E6E6E6 1px solid; }
+.artist-details h2 { margin: 10px 0 !important; }
+.artist-details img { }
+.caption { color: #666; font-size: .7em; }

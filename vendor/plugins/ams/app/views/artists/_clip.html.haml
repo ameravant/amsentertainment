@@ -1,4 +1,4 @@
-%ul{:class => "song_list"}
-  %li
-    = clip.name
-    = flashobject_tag "/plugin_assets/ams/button/musicplayer.swf", :size => "17x17", :variables => {:song_url => clip.file.url, :name => "movie"}
+%li
+  = flashobject_tag "/plugin_assets/ams/button/musicplayer.swf", :size => "17x17", :variables => {:song_url => clip.file.url, :name => "movie"}
+  = clip.name
+  

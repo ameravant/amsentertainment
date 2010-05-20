@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
   before_filter :set_admin, :only => [ :new, :create ]
 
   def new    
+    @blah = controller_name
   end
 
   def create
@@ -27,6 +28,7 @@ class SessionsController < ApplicationController
       flash[:error] = "Your account information could not be verified. Please try again."
       render :action => 'new'
     end
+    
   end
 
   def destroy
