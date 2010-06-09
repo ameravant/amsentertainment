@@ -1,0 +1,30 @@
+- content_for :meta_title do
+  = @entertainment_type ? @entertainment_type.title : "Entertainment"
+%h1 
+  Entertainment
+  -if @entertainment_type 
+    =":: "+ @entertainment_type.title
+  -elsif params[:tag]
+    =":: "+ params[:tag]
+-content_for :side_column_2 do
+  = render :partial => "shared/entertainments_nav", :locals => { :entertainment_types => @entertainment_types }
+%ul.entertainment-box
+  -@entertainments.each do |a|
+    .entertainment 
+      = link_to a.title, a
+      - if !a.price.blank? and a.price > 0
+        %div
+          Price: 
+          - a.price.times do
+            = icon "Currency Dollar",'/pricing','','','16x16','green'
+      %br
+      = a.blurb unless a.blurb.blank?
+    %li.entertainment
+      -unless a.images.blank?
+        .entertainment-pic
+          = link_to(tag(:img, :src => a.images.sort_by(&:position).first.small_thumbnail, :alt => a.images.sort_by(&:position).first.image_title), entertainment_path(a), :title => a.images.sort_by(&:position).first.image_title)
+      %h2= link_to a.title, a
+      
+      %p= a.blurb unless a.blurb.blank?
+      = clear
+          

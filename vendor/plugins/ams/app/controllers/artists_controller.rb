@@ -4,8 +4,6 @@ class ArtistsController < ApplicationController
   before_filter :find_nav
   def index
     if params[:genre]
-      @genre = Genre.find(params[:genre])
-      @artists = @genre.artists
     elsif params[:artist_type]
       @artist_type = ArtistType.find(params[:artist_type]) 
       @artists = @artist_type.artists

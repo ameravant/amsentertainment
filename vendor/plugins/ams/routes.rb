@@ -1,4 +1,4 @@
-resources  :artist_types, :genres, :entertainment_types
+resources :artist_types, :genres, :entertainment_types
 resources :artists, :entertainments, :has_many => [:images, :testimonials]
 
 namespace :admin do |admin|

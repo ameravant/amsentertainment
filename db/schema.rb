@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100520000825) do
+ActiveRecord::Schema.define(:version => 20100609185433) do
 
   create_table "article_categories", :force => true do |t|
     t.string  "name"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20100520000825) do
 
   create_table "artist_types", :force => true do |t|
     t.string "title"
+    t.string "permalink"
   end
 
   create_table "artist_types_artists", :id => false, :force => true do |t|
@@ -101,6 +102,7 @@ ActiveRecord::Schema.define(:version => 20100520000825) do
 
   create_table "entertainment_types", :force => true do |t|
     t.string "title"
+    t.string "permalink"
   end
 
   create_table "entertainment_types_entertainments", :id => false, :force => true do |t|
@@ -139,6 +141,7 @@ ActiveRecord::Schema.define(:version => 20100520000825) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "permalink"
   end
 
   create_table "images", :force => true do |t|

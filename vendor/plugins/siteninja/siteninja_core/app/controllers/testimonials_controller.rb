@@ -53,10 +53,10 @@ class TestimonialsController < ApplicationController
       @article_archive = Article.published.group_by { |a| [a.published_at.month, a.published_at.year] }
       @article_authors = Person.active.find(:all, :conditions => "articles_count > 0")
       @article_tags = Article.published.tag_counts.sort_by(&:name)
-    elsif @owner.kind_of?(Product)
-      
-    elsif @owner.kind_of?(Gallery)
-      
+    # elsif @owner.kind_of?(Product)
+    #   
+    # elsif @owner.kind_of?(Gallery)
+    #   
     end
   end
 end

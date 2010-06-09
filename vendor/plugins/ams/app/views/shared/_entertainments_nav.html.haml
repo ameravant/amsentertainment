@@ -1,0 +1,4 @@
+%h2="Events"  
+%ul.submenu-inner
+  -@entertainment_types.each do |et|
+    %li=link_to(et.title, entertainment_type_path(et))

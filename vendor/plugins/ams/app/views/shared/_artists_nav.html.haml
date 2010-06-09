@@ -1,8 +1,8 @@
 %h2="Genres"
 %ul.submenu-inner
   -@genres.each do |g|
-    %li= link_to(g.title, artists_path(:genre => g))
+    %li= link_to(g.title, genre_path(g))
 %h2="Types"  
 %ul.submenu-inner
   -@artist_types.each do |at|
-    %li=link_to(at.title, artists_path(:artist_type => at))
+    %li=link_to(at.title, artist_type_path(at))
