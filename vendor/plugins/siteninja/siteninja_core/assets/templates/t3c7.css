@@ -25,7 +25,7 @@ h1, h2, h3 { color: #325D95; }
 
 label:hover { background: #d43a38; }
 
-#wrapper-outer { background-image: url(t3c7.gif); }
+#wrapper-outer { background: none; }
 #menu-inner li a { color: #325D95; }
 #menu-inner li.selected { background-image: url(t3c7.gif) !important;  }
 #menu-inner li.selected a { background-image: url(t3c7.gif) !important; }
