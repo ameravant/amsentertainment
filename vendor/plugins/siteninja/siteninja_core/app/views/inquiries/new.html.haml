@@ -34,10 +34,10 @@
           %td= text_field_tag "event[event_loc]", nil, :size => 67
         %tr
           %td= label_tag :start_time
-          %td= time_select "event", "start_time", {:twelve_hour => true}
+          %td= time_select "event", "start_time", {:twelve_hour => true, :minute_step => 30}
         %tr
           %td= label_tag :end_time
-          %td= time_select "event", "end_time", {:twelve_hour => true}
+          %td= time_select "event", "end_time", {:twelve_hour => true, :minute_step => 30}
         %tr.top
           %td{:colspan => "2"}
             = label_tag "event[hear_about]", "How did you hear about us?"
@@ -45,7 +45,7 @@
         %tr.top
           %td{:colspan => "2"}
             = f.label :inquiry, "Questions/Comments?"
-            %span{:class => "small red"} *required
+            %span{:class => "small red"} 
             = f.text_area :inquiry,  :size => "60x8"
             = text_field_tag "company", nil, :size => 1, :id => "inquiry_company"
         -if @cms_config['modules']['newsletters']

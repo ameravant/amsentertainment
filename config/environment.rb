@@ -9,7 +9,16 @@ Rails::Initializer.run do |config|
 
   if Rails.env.production?
     cms_config = YAML::load_file("#{RAILS_ROOT}/config/cms.yml")
-    config.action_mailer.default_url_options = { :host => "#{cms_config['website']['domain']}"}
+    require 'tls_smtp'
+    ActionMailer::Base.smtp_settings = {
+      :address => "smtp.sendgrid.net",
+      :port => '587',
+      :enable_starttls_auto => true,
+      :authentication => :login,
+      :domain => cms_config['website']['domain'],
+      :user_name => cms_config['site_settings']['sendgrid_username'],
+      :password => cms_config['site_settings']['sendgrid_password']
+    }
   else
     config.action_mailer.default_url_options = { :host => "localhost:3000" }
   end

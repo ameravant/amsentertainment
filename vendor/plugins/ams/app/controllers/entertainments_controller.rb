@@ -2,8 +2,7 @@ class EntertainmentsController < ApplicationController
   unloadable
   before_filter :find_entertainment, :only => [:show]
   before_filter :find_nav
-  def index
-    
+  def index    
     if !params[:tag].blank?
       # Filter entertainment by tag
       found_entertainments = Entertainment.find_tagged_with(params[:tag])

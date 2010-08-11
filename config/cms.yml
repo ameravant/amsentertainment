@@ -37,3 +37,5 @@ site_settings:
   events_title: 
   links_title: Directory Listing
   link_title: Resource
+  sendgrid_username: mailer@amsentertainment.com
+  sengrid_password: 1234Mail
