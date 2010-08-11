@@ -2,6 +2,7 @@ RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
 
 require File.join(File.dirname(__FILE__), 'boot')
 require File.join(File.dirname(__FILE__), '../vendor/plugins/siteninja/engines/boot')
+CMS_CONFIG = YAML::load_file("#{RAILS_ROOT}/config/cms.yml")
 
 Rails::Initializer.run do |config|
   config.i18n.default_locale = :en
