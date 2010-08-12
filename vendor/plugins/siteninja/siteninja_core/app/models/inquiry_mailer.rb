@@ -15,12 +15,11 @@ class InquiryMailer < ActionMailer::Base
   
   def setup_email(email, subject)
     cms_config ||= YAML::load_file("#{RAILS_ROOT}/config/cms.yml")
-    recipients   "#{to_name.strip} <#{to_email.strip}>"
+    recipients   email.strip
     from         "#{CMS_CONFIG['website']['name']} <#{CMS_CONFIG['site_settings']['sendgrid_username']}>"
     headers      'Reply-to' => "<#{CMS_CONFIG['site_settings']['sendgrid_username']}>"
     subject      subject.strip 
     sent_on      Time.now
     content_type 'text/html'
   end
-
 end
