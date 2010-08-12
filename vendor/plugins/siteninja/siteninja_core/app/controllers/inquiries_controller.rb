@@ -29,6 +29,7 @@ class InquiriesController < ApplicationController
       @person.save
       params[:inquiry][:name] ="#{params[:person][:first_name]} #{params[:person][:last_name]}"
       params[:inquiry][:person_id] = @person.id
+      params[:inquiry][:phone] = @person.phone
       @inquiry = Inquiry.new(params[:inquiry])
       @event_details = params[:event]
       if !@inquiry.save
