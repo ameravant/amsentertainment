@@ -1,7 +1,7 @@
 class InquiryMailer < ActionMailer::Base
 
   def notification_to_admin(inquiry, event_details)
-    setup_email(Setting.first.inquiry_notification_email, "New inquiry received (\##{inquiry.id})")
+    setup_email(Setting.first.inquiry_notification_email, "Inquiry: #{event_details["event_date(2i)"]}/#{event_details["event_date(3i)"]}/#{event_details["event_date(1i)"]}-#{inquiry.name}-#{!@event_details["event_loc"].blank? ? @event_details["event_loc"] : "No event location given"}")
     body :inquiry => inquiry, :event_details => event_details
   end
   
