@@ -48,6 +48,6 @@ class Admin::GenresController < AdminController
   
 private
   def find_genre
-    @genre = Genre.find(params[:id])
+    @genre = Genre.find_by_permalink(params[:id])
   end
 end
