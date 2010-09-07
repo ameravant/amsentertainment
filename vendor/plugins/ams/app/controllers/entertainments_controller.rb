@@ -6,12 +6,9 @@ class EntertainmentsController < ApplicationController
     if !params[:tag].blank?
       # Filter entertainment by tag
       found_entertainments = Entertainment.find_tagged_with(params[:tag])
-      add_breadcrumb params[:tag]
     elsif params[:entertainment_type]
       found_entertainments = EntertainmentType.find_by_permalink(params[:entertainment_type]).entertainments
-      add_breadcrumb params[:entertainment_type]
     else
-      add_breadcrumb "Entertainment"
       found_entertainments = Entertainment.all    
     end
     @page = Page.find_by_permalink("entertainment")
