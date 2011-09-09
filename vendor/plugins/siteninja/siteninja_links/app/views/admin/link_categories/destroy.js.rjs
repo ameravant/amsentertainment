@@ -1,1 +1,0 @@
-page.visual_effect :fade, dom_id(@link_category), :duration => 1

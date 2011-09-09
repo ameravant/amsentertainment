@@ -1,9 +1,0 @@
-- unless testimonial.blank?
-  - content_for :side_column do
-    %div.testimonial
-      %blockquote
-        = testimonial.quote
-      %cite
-        - owner = eval(testimonial.quotable_type).find(testimonial.quotable_id)
-        = testimonial.body.blank? ? testimonial.citation : link_to(testimonial.citation, [owner, testimonial])
-
