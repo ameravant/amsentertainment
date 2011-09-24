@@ -7,7 +7,9 @@ class Admin::EntertainmentTypesController < AdminController
     add_breadcrumb "Entertainment Types"
     @entertainment_types = EntertainmentType.all    
   end
-  
+  def show
+    render :index
+  end
   def new
     add_breadcrumb "Entertainment", admin_entertainments_path
     add_breadcrumb "Entertainment Types", admin_entertainment_types_path
