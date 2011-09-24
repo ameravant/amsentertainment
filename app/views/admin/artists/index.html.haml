@@ -57,11 +57,11 @@
             - if current_user.has_role(["Admin", "Editor"])
               - if artist.images_count > 0
                 - if artist.features_count > 0
-                  = defeature_icon(artist, "/admin/artists/#{artist.to_param}/features/1", artist.title, "inline")
-                  = feature_icon(artist, artist.title)
+                  / = defeature_icon(artist, "/admin/artists/#{artist.to_param}/features/1", artist.title, "inline")
+                  / = feature_icon(artist, artist.title)
                 -else
-                  = feature_icon(artist, artist.title)
-                  = defeature_icon(artist, "/admin/artists/#{artist.to_param}/features/1", artist.title, "none")
+                  / = feature_icon(artist, artist.title)
+                  / = defeature_icon(artist, "/admin/artists/#{artist.to_param}/features/1", artist.title, "none")
               -else
                 = disabled_feature_icon(artist, [:new, :admin, artist, :feature], artist.title)
             = icon "Write", [:edit, :admin, artist]
