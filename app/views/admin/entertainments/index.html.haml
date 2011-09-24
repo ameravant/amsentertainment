@@ -16,10 +16,9 @@
       %th Testimonials
       %th Images
       %th.center{ :style => "width: 65px;"} Options
-  - if @entertainments.total_pages > 1
-    %tfoot
-      %tr
-        %td{ :colspan => "3" }= will_paginate @entertainments
+  %tfoot
+    %tr
+      %td{ :colspan => "3" }= will_paginate @entertainments
   %tbody
   -for entertainment in @entertainments do
     %tr[entertainment]{ :class => cycle('odd','even') }

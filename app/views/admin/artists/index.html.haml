@@ -19,10 +19,9 @@
       %th Testimonials
       %th Images
       %th.center{ :style => "width: 65px;"} Options
-  - if @artists.total_pages > 1
-    %tfoot
-      %tr
-        %td{ :colspan => "3" }= will_paginate @artists
+  %tfoot
+    %tr
+      %td{ :colspan => "3" }= will_paginate @artists
   %tbody
   -for artist in @artists do
     %tr[artist]{ :class => cycle('odd','even') }
