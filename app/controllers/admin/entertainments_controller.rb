@@ -6,7 +6,9 @@ class Admin::EntertainmentsController < AdminController
     @entertainment_types = EntertainmentType.all
     @entertainments = Entertainment.all(:order => "title").paginate(:page => params[:page], :per_page => 50)    
   end
-  
+  def show
+    redirect_to admin_entertainments_url
+  end
   def new
     add_breadcrumb "Entertainment", admin_entertainments_path
     add_breadcrumb "New"

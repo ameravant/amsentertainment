@@ -7,7 +7,7 @@ class Admin::ArtistsController < AdminController
     @artists = Artist.all(:order => "title").paginate(:page => params[:page], :per_page => 50)    
   end
   def show
-    render :index
+    redirect_to admin_artists_url
   end
   def new
     add_breadcrumb "Artists", admin_artists_path
