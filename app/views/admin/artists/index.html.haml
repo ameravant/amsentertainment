@@ -19,9 +19,10 @@
       %th Testimonials
       %th Images
       %th.center{ :style => "width: 65px;"} Options
-  %tfoot
-    %tr
-      %td{ :colspan => "3" }= will_paginate @artists
+  - if @artists.any?
+    %tfoot
+      %tr
+        %td{ :colspan => "3" }= will_paginate @artists
   %tbody
   -for artist in @artists do
     %tr[artist]{ :class => cycle('odd','even') }
