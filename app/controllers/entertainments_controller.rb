@@ -29,6 +29,7 @@ class EntertainmentsController < ApplicationController
 private
   def find_entertainment
     @entertainment = Entertainment.find(params[:id])
+    @owner = @entertainment
   end
   def find_nav
     @entertainment_types = EntertainmentType.all

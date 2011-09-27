@@ -26,6 +26,7 @@ class ArtistsController < ApplicationController
 private
   def find_artist
     @artist = Artist.find(params[:id])
+    @owner = @artist
   end
   def find_nav
     @genres = Genre.all
