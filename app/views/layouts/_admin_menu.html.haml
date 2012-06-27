@@ -1,103 +1,226 @@
--unless @hide_admin_menu
-  #admin-menu
-    - if current_user.has_role(@permissions['admin'])
-      %ul
-        %li= link_to "Home", "/", :id => "home"
-        %li= link_to "Dashboard", "/admin", :id => "admin-home"
-        - if @cms_config['modules']['pages']
-          %li= link_to "Assets", admin_assets_path, :id => "admin-assets" if current_user.has_role(@permissions['assets'])
-          %li= link_to "Pages", admin_pages_path, :id => "admin-pages" if current_user.has_role(@permissions['pages'])
-        - if @cms_config['modules']['blog']
-          %li= link_to @cms_config['site_settings']['blog_title'], admin_articles_path, :id => "admin-blogs" if current_user.has_role(@permissions['articles'])
-        - if @cms_config['modules']['properties']
-          %li= link_to "Properties", admin_properties_path, :id => "admin-properties"
-          %li= link_to "Property Types", admin_property_types_path, :id => "admin-property-types"
-          %li= link_to "Regions", admin_regions_path, :id => "admin-regions"
-        - if @cms_config['features']['testimonials']
-          - testimonials = Page.find_by_permalink("testimonials")
-          %li= link_to "Testimonials", [:admin, testimonials, :testimonials], :id => "admin-testimonials" if current_user.has_role(@permissions['testimonials'])
-        - if @cms_config['modules']['galleries']
-          %li= link_to "Galleries", admin_galleries_path, :id => "admin-galleries" if current_user.has_role(@permissions['galleries'])
-        - if @cms_config['features']['advanced_feature_box']
-          %li= link_to "Videos", admin_videos_path, :id => "admin-videos" if current_user.has_role(@permissions['admin'])
-        - if @cms_config['modules']['faqs']
-          %li= link_to "FAQs", admin_faqs_path, :id => "admin-faqs" if current_user.has_role(@permissions['admin'])
-        - if @cms_config['modules']['events']
-          %li= link_to @cms_config['site_settings']['events_title'], admin_events_path, :id => "admin-events" if current_user.has_role(@permissions['events'])
-        - if @cms_config['modules']['documents']
-          %li= link_to "Documents", admin_folders_path, :id => "admin-documents" if current_user.has_role(@permissions['documents'])
-        %li= link_to "People", admin_people_path, :id => "admin-contacts" if current_user.has_role(@permissions['people'])
-        %li= link_to "Artists", admin_artists_path, :id => "admin-contacts" if current_user.has_role(@permissions['people'])
-        %li= link_to "Entertainments", admin_entertainments_path, :id => "admin-videos" if current_user.has_role(@permissions['people'])
-       
-        - if @cms_config['modules']['newsletters']
-          %li= link_to "Newsletters", admin_newsletters_path, :id => "admin-newsletters" if current_user.has_role(@permissions['newsletters'])
-        - if @cms_config['modules']['links']
-          %li= link_to @cms_config['site_settings']['links_title'], admin_links_path, :id => "admin-links" if current_user.has_role(@permissions['links'])
-        - if @cms_config['modules']['product']
-          %li= link_to "Products", admin_products_path, :id => "admin-product" if current_user.has_role(@permissions['products'])
-        %li= link_to "Inquiries", admin_inquiries_path, :id => "admin-inquiries" if current_user.has_role(@permissions['inquiries'])
-        - if current_user.has_role(@permissions['settings'])
-          %li#settings-menu
-            = link_to "", "javascript:void(0)", :id => "admin-settings"
-            %ul#settings-ul
-              %li= link_to "Edit Settings", edit_admin_setting_path, :id => "admin-settings-edit"
-              %li= link_to "Templates", admin_templates_path, :id => "admin-settings-templates"
-              %li= link_to "Side Columns", admin_columns_path(:column_location => "side_column"), :id => "admin-settings-side-column"
-              %li= link_to "Main Columns", admin_columns_path(:column_location => "main_column"), :id => "admin-settings-main-column"
-              %li= link_to "Redirects", admin_redirects_path, :id => "admin-settings-redirects"
-              %li= link_to "Sign out", session_path, :method => :delete
-        %li.signout
-          %span.hmenu
-            %strong= link_to(current_user.name, edit_admin_person_path(current_user.person.id))
-            - if !current_user.has_role(@permissions['settings'])
-              %span= link_to "Sign out", session_path, :method => :delete      
-    - else
-      %ul
-        %li= link_to "Homepage", "/", :id => "home"
-        - if current_user.has_role("Contributor")
-          %li= link_to @settings.admin_blog_title, admin_articles_path, :id => "admin-blogs"
-        %li.signout
-          %span.hmenu
-            %strong= link_to(current_user.name, edit_admin_person_path(current_user.person.id))
-            %span= link_to "Sign out", session_path, :method => :delete
-    = clear
-  <div id="top-margin"></div>
+-unless @hide_admin_menu or !@tmplate.include_default_head_script
+  #admin-menu-outer
+    #admin-menu
+   
+      - if current_user.has_role(@permissions['admin'])
+        %ul
+          %li= link_to "Home", "/", :id => "home"
+          %li= link_to "Dashboard", "/admin", :id => "admin-home"
+          - if @cms_config['modules']['pages']
+            %li= link_to "Assets", admin_assets_path(:fancy => true), :id => "admin-assets", :class => "fancy-iframe" if current_user.has_role(@permissions['assets'])
+            %li= link_to "Pages", admin_pages_path, :id => "admin-pages" if current_user.has_role(@permissions['pages'])
+          - if @cms_config['modules']['blog']
+            %li= link_to @cms_config['site_settings']['blog_title'], admin_articles_path, :id => "admin-blogs" if current_user.has_role(@permissions['articles'])
+          - if @cms_config['modules']['properties']
+            %li= link_to "Properties", admin_properties_path, :id => "admin-properties"
+            %li= link_to "Property Types", admin_property_types_path, :id => "admin-property-types"
+            %li= link_to "Regions", admin_regions_path, :id => "admin-regions"
+          - if @cms_config['features']['testimonials'] and !Page.find_by_permalink("testimonials").blank?
+            - testimonials = Page.find_by_permalink("testimonials")
+            %li= link_to "Testimonials", [:admin, testimonials, :testimonials], :id => "admin-testimonials" if current_user.has_role(@permissions['testimonials'])
+          - if @cms_config['modules']['galleries']
+            %li= link_to "Galleries", admin_galleries_path, :id => "admin-galleries" if current_user.has_role(@permissions['galleries'])
+          - if @cms_config['features']['advanced_feature_box']
+            %li= link_to "Videos", admin_videos_path, :id => "admin-videos" if current_user.has_role(@permissions['admin'])
+          - if @cms_config['modules']['faqs']
+            %li= link_to "FAQs", admin_faqs_path, :id => "admin-faqs" if current_user.has_role(@permissions['admin'])
+          - if @cms_config['modules']['events']
+            %li= link_to @cms_config['site_settings']['events_title'], admin_events_path, :id => "admin-events" if current_user.has_role(@permissions['events'])
+          - if @cms_config['modules']['documents']
+            %li= link_to "Documents", admin_folders_path, :id => "admin-documents" if current_user.has_role(@permissions['documents'])
+          %li= link_to "People", admin_people_path, :id => "admin-contacts" if current_user.has_role(@permissions['people'])
+          %li= link_to "Artists", admin_artists_path, :id => "admin-contacts" if current_user.has_role(@permissions['people'])
+          %li= link_to "Entertainments", admin_entertainments_path, :id => "admin-videos" if current_user.has_role(@permissions['people'])
+
+          - if @cms_config['modules']['newsletters']
+            %li= link_to "Newsletters", admin_newsletters_path, :id => "admin-newsletters" if current_user.has_role(@permissions['newsletters'])
+          - if @cms_config['modules']['links']
+            %li= link_to @cms_config['site_settings']['links_title'], admin_links_path, :id => "admin-links" if current_user.has_role(@permissions['links'])
+          - if @cms_config['modules']['product']
+            %li= link_to "Products", admin_products_path, :id => "admin-product" if current_user.has_role(@permissions['products'])
+          %li= link_to "Inquiries", admin_inquiries_path, :id => "admin-inquiries" if current_user.has_role(@permissions['inquiries'])
+          - if ActiveRecord::Base.connection.tables.include?("accounts") and $CURRENT_ACCOUNT.is_master? and current_user.is_super_user?
+            %li= link_to "Accounts", admin_accounts_path, :id => "admin-accounts"
+            %li= link_to "Stats", admin_stats_path, :id => "admin-stats"
+          
+          - if current_user.has_role(@permissions['settings'])
+            %li#settings-menu
+              = link_to "", "javascript:void(0)", :id => "admin-settings"
+              %ul#settings-ul
+                %li= link_to "Edit Settings", edit_admin_setting_path, :id => "admin-settings-edit"
+                %li= link_to "Themes", admin_themes_path, :id => "admin-settings-themes"
+                %li= link_to "Templates", admin_templates_path, :id => "admin-settings-templates"
+                %li= link_to "Side Columns", admin_columns_path(:column_location => "side_column"), :id => "admin-settings-side-column"
+                %li= link_to "Main Columns", admin_columns_path(:column_location => "main_column"), :id => "admin-settings-main-column"
+                %li= link_to "Redirects", admin_redirects_path, :id => "admin-settings-redirects"
+                %li= link_to "Sign out", session_path, :method => :delete
+          %li.signout
+            %span.hmenu
+              %strong= link_to(current_user.name, edit_admin_person_path(current_user.person.id))
+              - if !current_user.has_role(@permissions['settings'])
+                %span= link_to "Sign out", session_path, :method => :delete      
+      - else
+        %ul
+          %li= link_to "Homepage", "/", :id => "home"
+          - if current_user.has_role("Contributor")
+            %li= link_to @settings.admin_blog_title, admin_articles_path, :id => "admin-blogs"
+          - if current_user.has_role(["Event Contributor", "Event Author"])
+            %li= link_to "Manage Your Events", admin_events_path, :id => "admin-events"
+          %li.signout
+            %span.hmenu
+              %strong= link_to(current_user.name, edit_admin_person_path(current_user.person.id))
+              %span= link_to "Sign out", session_path, :method => :delete
+      = clear
+    <div id="top-margin"></div>
+  #minimize
+    = link_to "User Nav", "#", :id => "admin-minimize", :onclick => "hideAdmin()", :title => "Hide User Menu", :alt => "Hide User Menu"
+    = link_to "User Nav", "#", :id => "admin-restore", :onclick => "showAdmin()", :title => "Show User Menu", :alt => "Show User Menu"
+  
   %style{:type => "text/css"}
+    ==#admin-minimize {background: url('#{css_icon("Minus", "", "24x24", "blue")}') no-repeat center; background-size: 24px 24px; position: fixed; right: 0; top: 0; width: 36px; height: 36px !important; padding: 0 !important; display: block; z-index: 2001; white-space: nowrap; overflow: hidden; text-indent: 100%; display: block; }
+    ==#admin-restore {background: url('#{css_icon("Arrow2 Down", "", "24x24", "blue")}') no-repeat center; background-size: 24px 24px; position: fixed; right: 0; top: 0; width: 36px; height: 36px !important; padding: 0 !important; display: block; z-index: 2001; display: none; white-space: nowrap; overflow: hidden; text-indent: 100%; }
     -if !@settings.favicon_file_name.blank?
       ==#home {background-image: url('#{@settings.favicon(:original)}')}
     -else
-      ==#home {background-image: url('#{css_icon("Home")}')}
-    ==#admin-menu ul { margin: 0 150px 0 0; }
-    ==#admin-home {background-image: url('#{css_icon("Home")}')}
-    ==#admin-pages {background-image: url('#{css_icon("Clipboard Copy")}')}
-    ==#admin-blogs {background-image: url('#{css_icon("Write")}')}
-    ==#admin-galleries {background-image: url('#{css_icon("Picture")}')}
-    ==#admin-assets {background-image: url('#{css_icon("Folder2")}')}
-    ==#admin-settings {background-image: url('#{css_icon("Gear", "", "24x24", "black")}'); position: absolute; right: 10px; top: 0; width: 36px !important; height: 36px !important; padding: 0 !important; }
-    ==#admin-documents {background-image: url('#{css_icon("Folder3")}')}
-    ==#admin-users {background-image: url('#{css_icon("Lock Open")}')}
-    ==#admin-contacts {background-image: url('#{css_icon("User")}')}
-    ==#admin-events {background-image: url('#{css_icon("Calendar")}')}
-    ==#admin-testimonials {background-image: url('#{css_icon("Bubble 3")}')}
-    ==#admin-inquiries {background-image: url('#{css_icon("Bubble 1")}')}
-    ==#admin-product {background-image: url('#{css_icon("Cube")}')}
-    ==#admin-store {background-image: url('#{css_icon("Cart")}')}
-    ==#admin-links {background-image: url('#{css_icon("Link")}')}
-    ==#admin-order {background-image: url('#{css_icon("Currency Dollar")}')}
-    ==#admin-newsletters {background-image: url('#{css_icon("Document")}')}
-    ==#admin-videos {background-image: url('#{css_icon("Video")}')}
-    ==#admin-menu ul#settings-ul { display: block; background: #444; position: absolute; top: 34px; padding: 4px; right: 12px; margin: 0 0 0 0 !important; }
+      ==#home {background-image: url('#{css_icon("Home", "", "16x16", "blue")}')}
+    ==#admin-menu ul { margin: 0 150px 0 0; font-family: Tahoma, Arial, Sans-Serif; }
+    ==#top-margin { padding: 5px; height: 26px; }
+    ==#admin-home {background-image: url('#{css_icon("Stats 3", "", "16x16", "blue")}')}
+    ==#admin-pages {background-image: url('#{css_icon("Clipboard Copy", "", "16x16", "blue")}')}
+    ==#admin-blogs {background-image: url('#{css_icon("Write", "", "16x16", "blue")}')}
+    ==#admin-galleries {background-image: url('#{css_icon("Picture", "", "16x16", "blue")}')}
+    ==#admin-assets {background-image: url('#{css_icon("Folder2", "", "16x16", "blue")}')}
+    ==#admin-menu li a#admin-settings {background-image: url('#{css_icon("Gear", "", "24x24", "blue")}'); background-size: 24px 24px; position: absolute; right: 40px; top: 1px; width: 32px !important; height: 36px !important; padding: 0 !important; }
+    ==#admin-documents {background-image: url('#{css_icon("Folder3", "", "16x16", "blue")}')}
+    ==#admin-users {background-image: url('#{css_icon("Lock Open", "", "16x16", "blue")}')}
+    ==#admin-contacts {background-image: url('#{css_icon("User", "", "16x16", "blue")}')}
+    ==#admin-events {background-image: url('#{css_icon("Calendar", "", "16x16", "blue")}')}
+    ==#admin-testimonials {background-image: url('#{css_icon("Bubble 3", "", "16x16", "blue")}')}
+    ==#admin-inquiries {background-image: url('#{css_icon("Bubble 1", "", "16x16", "blue")}')}
+    ==#admin-product {background-image: url('#{css_icon("Cube", "", "16x16", "blue")}')}
+    ==#admin-store {background-image: url('#{css_icon("Cart", "", "16x16", "blue")}')}
+    ==#admin-links {background-image: url('#{css_icon("Link", "", "16x16", "blue")}')}
+    ==#admin-order {background-image: url('#{css_icon("Currency Dollar", "", "16x16", "blue")}')}
+    ==#admin-newsletters {background-image: url('#{css_icon("Document", "", "16x16", "blue")}')}
+    ==#admin-videos {background-image: url('#{css_icon("Video", "", "16x16", "blue")}')}
+    ==#admin-stats {background-image: url('#{css_icon("Stats 3", "", "16x16", "blue")}')}
+    ==#admin-accounts {background-image: url('#{css_icon("Contact", "", "16x16", "blue")}')}
+    ==#admin-menu ul#settings-ul { display: none; background: #00466A; position: absolute; top: 34px; padding: 4px; right: 12px; margin: 0 0 0 0 !important; }
     ==#settings-ul li { display: block; float: none; padding: 2px 4px; }
     ==#settings-ul li a { padding: 4px; display: block; width: 100%; margin: 0; }
-    ==#settings-ul li a:hover { background: #333; }
-    ==#admin-menu .signout { margin: 0 10px 0 0; white-space: nowrap; position: absolute; right: 30px; width: 110px; padding: 5px; font-size: .8em; }
+    ==#admin-menu .signout { margin: 0 10px 0 0; white-space: nowrap; position: absolute; right: 70px; width: 110px; padding: 5px; font-size: .8em; }
     ==#admin-menu .signout a { padding: 4px 0; float: none; display: inline; margin: 0; }
+    ==@media only screen and (max-width: 480px) {
+    ==.menu-zoom { zoom: 300%; }
+    ==.menu-zoom-out { zoom: 100%; }
+    ==#admin-menu-outer { display: none; }
+    ==#admin-minimize {background: url('#{css_icon("Application", "", "48x48", "blue")}') no-repeat center transparent; background-size: 48px 48px; position: fixed; left: inherit; bottom: inherit; top: 0; right: 0; height: 75px !important; padding: 0 !important; display: block; z-index: 2001; width: 75px !important; display: block; }
+    ==#admin-restore {background: url('#{css_icon("Minus", "", "48x48", "blue")}') no-repeat center transparent; background-size: 48px 48px; position: fixed; left: inherit; bottom: inherit; top: 0; right: 0;  width: 75px !important; height: 75px !important; padding: 0 !important; display: block; z-index: 2001;  display: none; }
+    ==#admin-menu li a#admin-settings {background-size: 48px 48px; position: fixed; right: 0; top: 100px; padding: 0 !important; width: 65px !important; height: 75px !important; }
+    ==#admin-menu ul#settings-ul { display: none; background: #00466A; position: absolute; top: 200px; padding: 4px; right: 12px; margin: 0 0 0 0 !important; }
+
+    ==#admin-menu li { float: none; margin: 0 0 5px; line-height: 48px; }
+    ==#admin-menu li a { background-size: 48px 48px; background-position: 5px 8px; padding: 10px; padding-left: 60px; line-height: 48px; height: 48px; width: 200px; }
+    ==ul#settings-ul li a { padding: 10px 10px 10px 10px; font-size: 1.4em; }
+    ==#admin-menu-outer { display: none; }
+    ==#admin-menu { height: 100%; overflow: auto; font-size: 20px; }
+    ==#top-margin { display: none; }
+    ==}
+    
+    ==@media only screen and (max-device-width: 480px) {
+    -if !@settings.favicon_file_name.blank?
+      ==#home {background-image: url('#{@settings.favicon(:original)}')}
+    -else
+      ==#home {background-image: url('#{css_icon("Home", "", "48x48", "blue")}')}
+    ==#admin-menu ul { margin: 0 150px 0 0; font-family: Tahoma, Arial, Sans-Serif; }
+    ==#top-margin { padding: 5px; height: 26px; }
+    ==#admin-home {background-image: url('#{css_icon("Stats 3", "", "48x48", "blue")}')}
+    ==#admin-pages {background-image: url('#{css_icon("Clipboard Copy", "", "48x48", "blue")}')}
+    ==#admin-blogs {background-image: url('#{css_icon("Write", "", "48x48", "blue")}')}
+    ==#admin-galleries {background-image: url('#{css_icon("Picture", "", "48x48", "blue")}')}
+    ==#admin-assets {background-image: url('#{css_icon("Folder2", "", "48x48", "blue")}')}
+    ==#admin-menu li a#admin-settings {background-image: url('#{css_icon("Gear", "", "24x24", "blue")}'); background-size: 24px 24px; position: absolute; right: 40px; top: 1px; width: 32px !important; height: 36px !important; padding: 0 !important; }
+    ==#admin-documents {background-image: url('#{css_icon("Folder3", "", "48x48", "blue")}')}
+    ==#admin-users {background-image: url('#{css_icon("Lock Open", "", "48x48", "blue")}')}
+    ==#admin-contacts {background-image: url('#{css_icon("User", "", "48x48", "blue")}')}
+    ==#admin-events {background-image: url('#{css_icon("Calendar", "", "48x48", "blue")}')}
+    ==#admin-testimonials {background-image: url('#{css_icon("Bubble 3", "", "48x48", "blue")}')}
+    ==#admin-inquiries {background-image: url('#{css_icon("Bubble 1", "", "48x48", "blue")}')}
+    ==#admin-product {background-image: url('#{css_icon("Cube", "", "48x48", "blue")}')}
+    ==#admin-store {background-image: url('#{css_icon("Cart", "", "48x48", "blue")}')}
+    ==#admin-links {background-image: url('#{css_icon("Link", "", "48x48", "blue")}')}
+    ==#admin-order {background-image: url('#{css_icon("Currency Dollar", "", "48x48", "blue")}')}
+    ==#admin-newsletters {background-image: url('#{css_icon("Document", "", "48x48", "blue")}')}
+    ==#admin-videos {background-image: url('#{css_icon("Video", "", "48x48", "blue")}')}
+    ==#admin-stats {background-image: url('#{css_icon("Stats 3", "", "48x48", "blue")}')}
+    ==#admin-accounts {background-image: url('#{css_icon("Contact", "", "48x48", "blue")}')}
+    ==#admin-menu li a:hover { background-color: transparent; color: #fff; }
+    ==.menu-zoom { zoom: 300%; }
+    ==.menu-zoom-out { zoom: 100%; }
+    ==#admin-menu-outer { display: none; }
+    ==#admin-minimize, #admin-restore {background: url('#{css_icon("Arrow2 Down", "", "48x48", "blue")}') no-repeat right center #193b62; background-size: 32px; position: absolute; left: inherit; bottom: inherit; top: 0; right: 0; height: 40px !important; display: block; z-index: 2001; width: 90px !important; display: block; text-indent: 0; line-height: 40px; text-align: left; color: #fff; text-decoration: none; border-radius: 0 0 8px 8px; padding: 0 5px !important; }
+    ==#admin-restore { background-image: url('#{css_icon("Arrow2 Up", "", "48x48", "blue")}'); display: none; }
+    ==#admin-menu li a#admin-settings {background-size: 32px 32px; position: relative; float: none; right: inherit; top: inherit; padding: 0; height: 32px !important; margin: 0; }
+    ==#admin-menu ul#settings-ul { display: none; background: #00466A; position: relative; top: inherit; padding: 4px; right: 12px; margin: 0 0 0 0 !important; }
+    ==#admin-menu .signout { white-space: inherit; text-align: left; float: left; position: relative; right: inherit; width: inherit; padding: inherit; }
+    ==#admin-menu li { float: none; margin: 0 0 10px; line-height: 48px; z-index: 2002; }
+    ==#admin-menu li a { background-size: 32px 32px; background-position: 5px 8px; padding: 0 10px 0 60px; line-height: 48px; height: 48px; width: 200px; }
+    ==ul#settings-ul li a { padding: 10px 10px 10px 10px; font-size: 1.4em; }
+    ==#admin-menu-outer { display: none; }
+    ==#admin-menu { height: 100%; overflow: auto; font-size: 1.35em; position: fixed; width: 100%; padding: 0; }
+    ==#top-margin { display: none; }
+    ==}
+    
   :javascript
-    jQuery(document).ready(function() {
-    jQuery("#settings-ul").hide();
-    jQuery("#admin-settings").click(function()
+    function hideAdmin(){
+    #{@jquery}('#admin-menu-outer').toggle()
+    #{@jquery}('#admin-minimize').hide()
+    #{@jquery}('#admin-restore').show()
+    #{@jquery}('#top-margin').css('height', #{@jquery}('#admin-menu').height())
+    }
+    function showAdmin(){
+    #{@jquery}('#admin-menu-outer').toggle()
+    #{@jquery}('#admin-minimize').show()
+    #{@jquery}('#admin-restore').hide()
+    #{@jquery}('#top-margin').css('height', #{@jquery}('#admin-menu').height())
+    }
+    #{@jquery}(document).ready(function() {
+    mouse_is_inside=false;
+    #{@jquery}("#settings-ul").hide();
+    #{@jquery}('#settings-menu').hover(function(){ 
+    mouse_is_inside=true; 
+    }, function(){ 
+    mouse_is_inside=false; 
+    });
+
+    #{@jquery}("#admin-settings").click(function()
     {
-    jQuery(this).next("#settings-ul").toggle();
+    #{@jquery}(this).next("#settings-ul").toggle();
     });
     });
+    #{@jquery}(document).ready(function() {
+    #{@jquery}(".fancy-iframe").fancybox({ 
+    'zoomSpeedIn': 300,
+    'zoomSpeedOut': 300,
+    'overlayShow': true,
+    'hideOnContentClick': 'true',
+    'easingOut': 'easeOutQuad',
+    'easingIn': 'easeInQuad',
+    'type': 'iframe',
+    'width': 910,
+    'autoScale': true,
+    'height':"90%"
+    }); 
+    }); 
+    #{@jquery}(document).ready(function() {
+    #{@jquery}(".fancy-inline").fancybox({ 
+    'zoomSpeedIn': 300,
+    'zoomSpeedOut': 300,
+    'overlayShow': false,
+    'hideOnContentClick': false,
+    'hideOnOverlayClick': true,
+    'type': 'inline',
+    'showCloseButton' : true,
+    'autoScale': true
+    }); 
+    }); 
