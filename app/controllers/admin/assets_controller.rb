@@ -7,6 +7,7 @@ class Admin::AssetsController < AdminController
   add_breadcrumb "Edit asset", nil, :only => [ :edit ]
   
   def index
+    @asset = Asset.new
     if @owner
       if params[:q].blank?
         @all_assets = @owner.assets
@@ -41,7 +42,7 @@ class Admin::AssetsController < AdminController
       @asset = Asset.new params[:asset]
       if @asset.save
         flash[:notice] = "#{@asset.name.titleize} uploaded successfully."
-        redirect_to admin_assets_path
+        redirect_to admin_assets_path(:fancy => params[:fancy])
       else
         render :action => "new"
       end
